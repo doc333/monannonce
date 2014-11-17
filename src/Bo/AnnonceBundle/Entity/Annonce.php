@@ -126,4 +126,336 @@ class Annonce
     private $annonceType;
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set titre
+     *
+     * @param string $titre
+     * @return Annonce
+     */
+    public function setTitre($titre)
+    {
+        $this->titre = $titre;
+
+        return $this;
+    }
+
+    /**
+     * Get titre
+     *
+     * @return string 
+     */
+    public function getTitre()
+    {
+        return $this->titre;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Annonce
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set nbrPlace
+     *
+     * @param integer $nbrPlace
+     * @return Annonce
+     */
+    public function setNbrPlace($nbrPlace)
+    {
+        $this->nbrPlace = $nbrPlace;
+
+        return $this;
+    }
+
+    /**
+     * Get nbrPlace
+     *
+     * @return integer 
+     */
+    public function getNbrPlace()
+    {
+        return $this->nbrPlace;
+    }
+
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     * @return Annonce
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean 
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * Set isRefuser
+     *
+     * @param boolean $isRefuser
+     * @return Annonce
+     */
+    public function setIsRefuser($isRefuser)
+    {
+        $this->isRefuser = $isRefuser;
+
+        return $this;
+    }
+
+    /**
+     * Get isRefuser
+     *
+     * @return boolean 
+     */
+    public function getIsRefuser()
+    {
+        return $this->isRefuser;
+    }
+
+    /**
+     * Set adresse
+     *
+     * @param string $adresse
+     * @return Annonce
+     */
+    public function setAdresse($adresse)
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    /**
+     * Get adresse
+     *
+     * @return string 
+     */
+    public function getAdresse()
+    {
+        return $this->adresse;
+    }
+
+    /**
+     * Set ville
+     *
+     * @param string $ville
+     * @return Annonce
+     */
+    public function setVille($ville)
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    /**
+     * Get ville
+     *
+     * @return string 
+     */
+    public function getVille()
+    {
+        return $this->ville;
+    }
+
+    /**
+     * Set cp
+     *
+     * @param string $cp
+     * @return Annonce
+     */
+    public function setCp($cp)
+    {
+        $this->cp = $cp;
+
+        return $this;
+    }
+
+    /**
+     * Get cp
+     *
+     * @return string 
+     */
+    public function getCp()
+    {
+        return $this->cp;
+    }
+
+    /**
+     * Set dateDebut
+     *
+     * @param \DateTime $dateDebut
+     * @return Annonce
+     */
+    public function setDateDebut($dateDebut)
+    {
+        $this->dateDebut = $dateDebut;
+
+        return $this;
+    }
+
+    /**
+     * Get dateDebut
+     *
+     * @return \DateTime 
+     */
+    public function getDateDebut()
+    {
+        return $this->dateDebut;
+    }
+
+    /**
+     * Set dateFin
+     *
+     * @param \DateTime $dateFin
+     * @return Annonce
+     */
+    public function setDateFin($dateFin)
+    {
+        $this->dateFin = $dateFin;
+
+        return $this;
+    }
+
+    /**
+     * Get dateFin
+     *
+     * @return \DateTime 
+     */
+    public function getDateFin()
+    {
+        return $this->dateFin;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Annonce
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Annonce
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Bo\AnnonceBundle\Entity\User $user
+     * @return Annonce
+     */
+    public function setUser(\Bo\AnnonceBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Bo\AnnonceBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set annonceType
+     *
+     * @param \Bo\AnnonceBundle\Entity\AnnonceType $annonceType
+     * @return Annonce
+     */
+    public function setAnnonceType(\Bo\AnnonceBundle\Entity\AnnonceType $annonceType = null)
+    {
+        $this->annonceType = $annonceType;
+
+        return $this;
+    }
+
+    /**
+     * Get annonceType
+     *
+     * @return \Bo\AnnonceBundle\Entity\AnnonceType 
+     */
+    public function getAnnonceType()
+    {
+        return $this->annonceType;
+    }
 }

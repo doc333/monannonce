@@ -46,4 +46,83 @@ class AnnoncePhoto
     private $annonce;
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set filePhoto
+     *
+     * @param string $filePhoto
+     * @return AnnoncePhoto
+     */
+    public function setFilePhoto($filePhoto)
+    {
+        $this->filePhoto = $filePhoto;
+
+        return $this;
+    }
+
+    /**
+     * Get filePhoto
+     *
+     * @return string 
+     */
+    public function getFilePhoto()
+    {
+        return $this->filePhoto;
+    }
+
+    /**
+     * Set isPrincipal
+     *
+     * @param boolean $isPrincipal
+     * @return AnnoncePhoto
+     */
+    public function setIsPrincipal($isPrincipal)
+    {
+        $this->isPrincipal = $isPrincipal;
+
+        return $this;
+    }
+
+    /**
+     * Get isPrincipal
+     *
+     * @return boolean 
+     */
+    public function getIsPrincipal()
+    {
+        return $this->isPrincipal;
+    }
+
+    /**
+     * Set annonce
+     *
+     * @param \Bo\AnnonceBundle\Entity\Annonce $annonce
+     * @return AnnoncePhoto
+     */
+    public function setAnnonce(\Bo\AnnonceBundle\Entity\Annonce $annonce = null)
+    {
+        $this->annonce = $annonce;
+
+        return $this;
+    }
+
+    /**
+     * Get annonce
+     *
+     * @return \Bo\AnnonceBundle\Entity\Annonce 
+     */
+    public function getAnnonce()
+    {
+        return $this->annonce;
+    }
 }

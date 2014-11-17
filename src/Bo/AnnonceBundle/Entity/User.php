@@ -160,4 +160,326 @@ class User implements UserInterface
         return $this->username;
     }
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     * @return User
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     * @return User
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     * @return User
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+
+        return $this;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return User
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set nom
+     *
+     * @param string $nom
+     * @return User
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * Get nom
+     *
+     * @return string 
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * Set prenom
+     *
+     * @param string $prenom
+     * @return User
+     */
+    public function setPrenom($prenom)
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    /**
+     * Get prenom
+     *
+     * @return string 
+     */
+    public function getPrenom()
+    {
+        return $this->prenom;
+    }
+
+    /**
+     * Set cp
+     *
+     * @param string $cp
+     * @return User
+     */
+    public function setCp($cp)
+    {
+        $this->cp = $cp;
+
+        return $this;
+    }
+
+    /**
+     * Get cp
+     *
+     * @return string 
+     */
+    public function getCp()
+    {
+        return $this->cp;
+    }
+
+    /**
+     * Set ville
+     *
+     * @param string $ville
+     * @return User
+     */
+    public function setVille($ville)
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    /**
+     * Get ville
+     *
+     * @return string 
+     */
+    public function getVille()
+    {
+        return $this->ville;
+    }
+
+    /**
+     * Set isNewsletter
+     *
+     * @param boolean $isNewsletter
+     * @return User
+     */
+    public function setIsNewsletter($isNewsletter)
+    {
+        $this->isNewsletter = $isNewsletter;
+
+        return $this;
+    }
+
+    /**
+     * Get isNewsletter
+     *
+     * @return boolean 
+     */
+    public function getIsNewsletter()
+    {
+        return $this->isNewsletter;
+    }
+
+    /**
+     * Set isDesactiver
+     *
+     * @param boolean $isDesactiver
+     * @return User
+     */
+    public function setIsDesactiver($isDesactiver)
+    {
+        $this->isDesactiver = $isDesactiver;
+
+        return $this;
+    }
+
+    /**
+     * Get isDesactiver
+     *
+     * @return boolean 
+     */
+    public function getIsDesactiver()
+    {
+        return $this->isDesactiver;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return User
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set update
+     *
+     * @param \DateTime $update
+     * @return User
+     */
+    public function setUpdate($update)
+    {
+        $this->update = $update;
+
+        return $this;
+    }
+
+    /**
+     * Get update
+     *
+     * @return \DateTime 
+     */
+    public function getUpdate()
+    {
+        return $this->update;
+    }
+
+    /**
+     * Add departement
+     *
+     * @param \Bo\AnnonceBundle\Entity\Departement $departement
+     * @return User
+     */
+    public function addDepartement(\Bo\AnnonceBundle\Entity\Departement $departement)
+    {
+        $this->departement[] = $departement;
+
+        return $this;
+    }
+
+    /**
+     * Remove departement
+     *
+     * @param \Bo\AnnonceBundle\Entity\Departement $departement
+     */
+    public function removeDepartement(\Bo\AnnonceBundle\Entity\Departement $departement)
+    {
+        $this->departement->removeElement($departement);
+    }
+
+    /**
+     * Get departement
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDepartement()
+    {
+        return $this->departement;
+    }
+
+    /**
+     * Add role
+     *
+     * @param \Bo\AnnonceBundle\Entity\Role $role
+     * @return User
+     */
+    public function addRole(\Bo\AnnonceBundle\Entity\Role $role)
+    {
+        $this->role[] = $role;
+
+        return $this;
+    }
+
+    /**
+     * Remove role
+     *
+     * @param \Bo\AnnonceBundle\Entity\Role $role
+     */
+    public function removeRole(\Bo\AnnonceBundle\Entity\Role $role)
+    {
+        $this->role->removeElement($role);
+    }
+
+    /**
+     * Get role
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
 }

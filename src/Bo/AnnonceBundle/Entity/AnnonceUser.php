@@ -56,4 +56,106 @@ class AnnonceUser
     private $user;
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set nbrPersonne
+     *
+     * @param integer $nbrPersonne
+     * @return AnnonceUser
+     */
+    public function setNbrPersonne($nbrPersonne)
+    {
+        $this->nbrPersonne = $nbrPersonne;
+
+        return $this;
+    }
+
+    /**
+     * Get nbrPersonne
+     *
+     * @return integer 
+     */
+    public function getNbrPersonne()
+    {
+        return $this->nbrPersonne;
+    }
+
+    /**
+     * Set note
+     *
+     * @param integer $note
+     * @return AnnonceUser
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    /**
+     * Get note
+     *
+     * @return integer 
+     */
+    public function getNote()
+    {
+        return $this->note;
+    }
+
+    /**
+     * Set annonce
+     *
+     * @param \Bo\AnnonceBundle\Entity\Annonce $annonce
+     * @return AnnonceUser
+     */
+    public function setAnnonce(\Bo\AnnonceBundle\Entity\Annonce $annonce = null)
+    {
+        $this->annonce = $annonce;
+
+        return $this;
+    }
+
+    /**
+     * Get annonce
+     *
+     * @return \Bo\AnnonceBundle\Entity\Annonce 
+     */
+    public function getAnnonce()
+    {
+        return $this->annonce;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Bo\AnnonceBundle\Entity\User $user
+     * @return AnnonceUser
+     */
+    public function setUser(\Bo\AnnonceBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Bo\AnnonceBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 }
