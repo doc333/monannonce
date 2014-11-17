@@ -6,6 +6,7 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Serializable;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -14,7 +15,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Table(name="user")
  * @ORM\Entity
  */
-class User implements UserInterface
+class User implements UserInterface, Serializable
 {
     /**
      * @var integer
@@ -138,6 +139,8 @@ class User implements UserInterface
     {
         $this->departement = new ArrayCollection();
         $this->role = new ArrayCollection();
+        $this->isDesactiver = false;
+        $this->salt = md5(uniqid(null, true));
     }
 
     public function eraseCredentials() {
@@ -420,10 +423,10 @@ class User implements UserInterface
     /**
      * Add departement
      *
-     * @param \Bo\AnnonceBundle\Entity\Departement $departement
+     * @param Departement $departement
      * @return User
      */
-    public function addDepartement(\Bo\AnnonceBundle\Entity\Departement $departement)
+    public function addDepartement(Departement $departement)
     {
         $this->departement[] = $departement;
 
@@ -433,9 +436,9 @@ class User implements UserInterface
     /**
      * Remove departement
      *
-     * @param \Bo\AnnonceBundle\Entity\Departement $departement
+     * @param Departement $departement
      */
-    public function removeDepartement(\Bo\AnnonceBundle\Entity\Departement $departement)
+    public function removeDepartement(Departement $departement)
     {
         $this->departement->removeElement($departement);
     }
@@ -443,7 +446,7 @@ class User implements UserInterface
     /**
      * Get departement
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return Collection 
      */
     public function getDepartement()
     {
@@ -453,10 +456,10 @@ class User implements UserInterface
     /**
      * Add role
      *
-     * @param \Bo\AnnonceBundle\Entity\Role $role
+     * @param Role $role
      * @return User
      */
-    public function addRole(\Bo\AnnonceBundle\Entity\Role $role)
+    public function addRole(Role $role)
     {
         $this->role[] = $role;
 
@@ -466,9 +469,9 @@ class User implements UserInterface
     /**
      * Remove role
      *
-     * @param \Bo\AnnonceBundle\Entity\Role $role
+     * @param Role $role
      */
-    public function removeRole(\Bo\AnnonceBundle\Entity\Role $role)
+    public function removeRole(Role $role)
     {
         $this->role->removeElement($role);
     }
@@ -476,10 +479,30 @@ class User implements UserInterface
     /**
      * Get role
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return Collection 
      */
     public function getRole()
     {
         return $this->role;
+    }
+    
+    /**
+     * @see Serializable::serialize()
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+        ));
+    }
+
+    /**
+     * @see Serializable::unserialize()
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+        ) = unserialize($serialized);
     }
 }
