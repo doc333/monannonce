@@ -1,3 +1,8 @@
+bo_admin:
+    resource: "@BoAdminBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 user:
     resource: "@UserBundle/Controller/"
     type:     annotation
