@@ -6,7 +6,7 @@
 
     <!--
     <services>
-        <service id="bo_admin.example" class="Bo\AdminBundle\Example">
+        <service id="bo_annonce.example" class="Bo\AnnonceBundle\Example">
             <argument type="service" id="service_id" />
             <argument>plain_value</argument>
             <argument>%parameter_name%</argument>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Bo\AdminBundle\Tests\Controller;
+namespace Bo\AnnonceBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

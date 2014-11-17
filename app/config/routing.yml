@@ -1,3 +1,8 @@
+bo_annonce:
+    resource: "@BoAnnonceBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 bo_admin:
     resource: "@BoAdminBundle/Controller/"
     type:     annotation

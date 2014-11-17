@@ -20,8 +20,7 @@ class AppKernel extends Kernel {
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new Bo\UserBundle\UserBundle(),
-            new Bo\AdminBundle\BoAdminBundle(),
+            new Bo\AnnonceBundle\BoAnnonceBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

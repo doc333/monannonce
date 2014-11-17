@@ -122,9 +122,27 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        // bo_user_default_index
-        if ($pathinfo === '/user') {
-            return array (  '_controller' => 'Bo\\UserBundle\\Controller\\DefaultController::indexAction',  '_route' => 'bo_user_default_index',);
+        // bo_admin_default_index
+        if (0 === strpos($pathinfo, '/hello') && preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'bo_admin_default_index')), array (  '_controller' => 'Bo\\AdminBundle\\Controller\\DefaultController::indexAction',));
+        }
+
+        if (0 === strpos($pathinfo, '/user')) {
+            // bo_user_default_index
+            if ($pathinfo === '/user') {
+                return array (  '_controller' => 'Bo\\UserBundle\\Controller\\DefaultController::indexAction',  '_route' => 'bo_user_default_index',);
+            }
+
+            // bo_user_default_checklogin
+            if ($pathinfo === '/user/check') {
+                return array (  '_controller' => 'Bo\\UserBundle\\Controller\\DefaultController::checkLogin',  '_route' => 'bo_user_default_checklogin',);
+            }
+
+        }
+
+        // bo_user_default_login
+        if ($pathinfo === '/login') {
+            return array (  '_controller' => 'Bo\\UserBundle\\Controller\\DefaultController::login',  '_route' => 'bo_user_default_login',);
         }
 
         // _welcome

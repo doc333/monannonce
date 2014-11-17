@@ -16,7 +16,7 @@
       <parameter key="AsseticBundle">Symfony\Bundle\AsseticBundle\AsseticBundle</parameter>
       <parameter key="DoctrineBundle">Doctrine\Bundle\DoctrineBundle\DoctrineBundle</parameter>
       <parameter key="SensioFrameworkExtraBundle">Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle</parameter>
-      <parameter key="UserBundle">Bo\UserBundle\UserBundle</parameter>
+      <parameter key="BoAnnonceBundle">Bo\AnnonceBundle\BoAnnonceBundle</parameter>
       <parameter key="AcmeDemoBundle">Acme\DemoBundle\AcmeDemoBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
       <parameter key="SensioDistributionBundle">Sensio\Bundle\DistributionBundle\SensioDistributionBundle</parameter>
@@ -1794,7 +1794,7 @@
             </argument>
             <argument key="security.firewall.map.context.secured_area" type="service">
               <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
-                <argument>^/admin</argument>
+                <argument>^/user</argument>
               </service>
             </argument>
           </argument>
@@ -1847,7 +1847,7 @@
       </call>
       <call method="registerListener">
         <argument>secured_area</argument>
-        <argument>_logout</argument>
+        <argument>/logout</argument>
         <argument>logout</argument>
         <argument>_csrf_token</argument>
         <argument>null</argument>
@@ -2023,7 +2023,7 @@
             <argument type="collection">
               <argument key="csrf_parameter">_csrf_token</argument>
               <argument key="intention">logout</argument>
-              <argument key="logout_path">_logout</argument>
+              <argument key="logout_path">/logout</argument>
             </argument>
             <call method="addHandler">
               <argument type="service" id="security.logout.handler.session"/>
@@ -2042,7 +2042,7 @@
               <service class="Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler" public="false">
                 <argument type="service" id="security.http_utils"/>
                 <argument type="collection">
-                  <argument key="login_path">_login</argument>
+                  <argument key="login_path">/login</argument>
                   <argument key="always_use_default_target_path">false</argument>
                   <argument key="default_target_path">/</argument>
                   <argument key="target_path_parameter">_target_path</argument>
@@ -2058,7 +2058,7 @@
                 <argument type="service" id="http_kernel"/>
                 <argument type="service" id="security.http_utils"/>
                 <argument type="collection">
-                  <argument key="login_path">_login</argument>
+                  <argument key="login_path">/login</argument>
                   <argument key="failure_path">null</argument>
                   <argument key="failure_forward">false</argument>
                   <argument key="failure_path_parameter">_failure_path</argument>
@@ -2067,7 +2067,7 @@
               </service>
             </argument>
             <argument type="collection">
-              <argument key="check_path">_security_check</argument>
+              <argument key="check_path">/user/check</argument>
               <argument key="use_forward">false</argument>
               <argument key="require_previous_session">true</argument>
               <argument key="username_parameter">_username</argument>
@@ -2093,7 +2093,7 @@
             <service class="Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint" public="false">
               <argument type="service" id="http_kernel"/>
               <argument type="service" id="security.http_utils"/>
-              <argument>_login</argument>
+              <argument>/login</argument>
               <argument>false</argument>
             </service>
           </argument>
@@ -2463,9 +2463,7 @@
       <argument type="service">
         <service class="Doctrine\ORM\Configuration" public="false">
           <call method="setEntityNamespaces">
-            <argument type="collection">
-              <argument key="UserBundle">Bo\UserBundle\Entity</argument>
-            </argument>
+            <argument type="collection"/>
           </call>
           <call method="setMetadataCacheImpl">
             <argument type="service">
@@ -2496,19 +2494,7 @@
           </call>
           <call method="setMetadataDriverImpl">
             <argument type="service">
-              <service class="Doctrine\ORM\Mapping\Driver\DriverChain" public="false">
-                <call method="addDriver">
-                  <argument type="service">
-                    <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
-                      <argument type="service" id="annotation_reader"/>
-                      <argument type="collection">
-                        <argument>/Users/da/Documents/dev/monannonce/src/Bo/UserBundle/Entity</argument>
-                      </argument>
-                    </service>
-                  </argument>
-                  <argument>Bo\UserBundle\Entity</argument>
-                </call>
-              </service>
+              <service class="Doctrine\ORM\Mapping\Driver\DriverChain" public="false"/>
             </argument>
           </call>
           <call method="setProxyDir">
@@ -2942,8 +2928,8 @@
         <argument>Doctrine</argument>
       </call>
       <call method="addPath">
-        <argument>/Users/da/Documents/dev/monannonce/src/Bo/UserBundle/Resources/views</argument>
-        <argument>User</argument>
+        <argument>/Users/da/Documents/dev/monannonce/src/Bo/AnnonceBundle/Resources/views</argument>
+        <argument>BoAnnonce</argument>
       </call>
       <call method="addPath">
         <argument>/Users/da/Documents/dev/monannonce/src/Acme/DemoBundle/Resources/views</argument>
