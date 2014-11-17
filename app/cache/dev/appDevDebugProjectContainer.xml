@@ -2421,7 +2421,7 @@
           </call>
           <call method="setNamingStrategy">
             <argument type="service">
-              <service class="Doctrine\ORM\Mapping\DefaultNamingStrategy" public="false"/>
+              <service class="Doctrine\ORM\Mapping\UnderscoreNamingStrategy" public="false"/>
             </argument>
           </call>
         </service>
