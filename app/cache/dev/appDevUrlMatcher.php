@@ -122,6 +122,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        // bo_user_default_index
+        if ($pathinfo === '/user') {
+            return array (  '_controller' => 'Bo\\UserBundle\\Controller\\DefaultController::indexAction',  '_route' => 'bo_user_default_index',);
+        }
+
         // _welcome
         if (rtrim($pathinfo, '/') === '') {
             if (substr($pathinfo, -1) !== '/') {

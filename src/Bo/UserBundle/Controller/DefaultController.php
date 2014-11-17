@@ -12,8 +12,8 @@ class DefaultController extends Controller
      * @Route("/user")
      * @Template()
      */
-    public function indexAction($name)
+    public function indexAction()
     {
-        return array('name' => $name);
+        return array();
     }
 }

@@ -16,6 +16,7 @@
       <parameter key="AsseticBundle">Symfony\Bundle\AsseticBundle\AsseticBundle</parameter>
       <parameter key="DoctrineBundle">Doctrine\Bundle\DoctrineBundle\DoctrineBundle</parameter>
       <parameter key="SensioFrameworkExtraBundle">Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle</parameter>
+      <parameter key="UserBundle">Bo\UserBundle\UserBundle</parameter>
       <parameter key="AcmeDemoBundle">Acme\DemoBundle\AcmeDemoBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
       <parameter key="SensioDistributionBundle">Sensio\Bundle\DistributionBundle\SensioDistributionBundle</parameter>
@@ -24,7 +25,7 @@
     <parameter key="kernel.charset">UTF-8</parameter>
     <parameter key="kernel.container_class">appDevDebugProjectContainer</parameter>
     <parameter key="database_driver">pdo_mysql</parameter>
-    <parameter key="database_host">127.0.0.1</parameter>
+    <parameter key="database_host">localhost</parameter>
     <parameter key="database_port">null</parameter>
     <parameter key="database_name">monannonce</parameter>
     <parameter key="database_user">root</parameter>
@@ -2308,7 +2309,7 @@
     <service id="doctrine.dbal.default_connection" class="stdClass" factory-method="createConnection" factory-service="doctrine.dbal.connection_factory">
       <argument type="collection">
         <argument key="driver">pdo_mysql</argument>
-        <argument key="host">127.0.0.1</argument>
+        <argument key="host">localhost</argument>
         <argument key="port">null</argument>
         <argument key="dbname">monannonce</argument>
         <argument key="user">root</argument>
@@ -2370,7 +2371,9 @@
       <argument type="service">
         <service class="Doctrine\ORM\Configuration" public="false">
           <call method="setEntityNamespaces">
-            <argument type="collection"/>
+            <argument type="collection">
+              <argument key="UserBundle">Bo\UserBundle\Entity</argument>
+            </argument>
           </call>
           <call method="setMetadataCacheImpl">
             <argument type="service">
@@ -2401,7 +2404,19 @@
           </call>
           <call method="setMetadataDriverImpl">
             <argument type="service">
-              <service class="Doctrine\ORM\Mapping\Driver\DriverChain" public="false"/>
+              <service class="Doctrine\ORM\Mapping\Driver\DriverChain" public="false">
+                <call method="addDriver">
+                  <argument type="service">
+                    <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
+                      <argument type="service" id="annotation_reader"/>
+                      <argument type="collection">
+                        <argument>/Users/da/Documents/dev/monannonce/src/Bo/UserBundle/Entity</argument>
+                      </argument>
+                    </service>
+                  </argument>
+                  <argument>Bo\UserBundle\Entity</argument>
+                </call>
+              </service>
             </argument>
           </call>
           <call method="setProxyDir">
@@ -2825,6 +2840,10 @@
       <call method="addPath">
         <argument>/Users/da/Documents/dev/monannonce/vendor/doctrine/doctrine-bundle/Doctrine/Bundle/DoctrineBundle/Resources/views</argument>
         <argument>Doctrine</argument>
+      </call>
+      <call method="addPath">
+        <argument>/Users/da/Documents/dev/monannonce/src/Bo/UserBundle/Resources/views</argument>
+        <argument>User</argument>
       </call>
       <call method="addPath">
         <argument>/Users/da/Documents/dev/monannonce/src/Acme/DemoBundle/Resources/views</argument>
