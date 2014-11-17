@@ -2,6 +2,8 @@
 
 namespace Bo\AnnonceBundle\Entity;
 
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -15,7 +17,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Table(name="user")
  * @ORM\Entity
  */
-class User implements UserInterface, Serializable
+class User implements UserInterface, Serializable, AdvancedUserInterface
 {
     /**
      * @var integer
