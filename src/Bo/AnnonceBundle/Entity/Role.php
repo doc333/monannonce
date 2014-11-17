@@ -2,7 +2,10 @@
 
 namespace Bo\AnnonceBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\Role\RoleInterface;
 
 /**
  * Role
@@ -10,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="role")
  * @ORM\Entity
  */
-class Role
+class Role implements RoleInterface
 {
     /**
      * @var integer
@@ -29,7 +32,7 @@ class Role
     private $role;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      *
      * @ORM\ManyToMany(targetEntity="User", mappedBy="role")
      */
@@ -40,7 +43,11 @@ class Role
      */
     public function __construct()
     {
-        $this->user = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->user = new ArrayCollection();
+    }
+
+    public function getRole() {
+        return $this->role;
     }
 
 }

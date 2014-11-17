@@ -2,7 +2,11 @@
 
 namespace Bo\AnnonceBundle\Entity;
 
+use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
@@ -10,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="user")
  * @ORM\Entity
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var integer
@@ -92,28 +96,28 @@ class User
     private $isDesactiver;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="created", type="datetime", nullable=false)
      */
     private $created;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="update", type="datetime", nullable=false)
      */
     private $update;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      *
      * @ORM\ManyToMany(targetEntity="Departement", mappedBy="user")
      */
     private $departement;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      *
      * @ORM\ManyToMany(targetEntity="Role", inversedBy="user")
      * @ORM\JoinTable(name="user_role",
@@ -132,8 +136,28 @@ class User
      */
     public function __construct()
     {
-        $this->departement = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->role = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->departement = new ArrayCollection();
+        $this->role = new ArrayCollection();
+    }
+
+    public function eraseCredentials() {
+        
+    }
+
+    public function getPassword() {
+        return $this->password;
+    }
+
+    public function getRoles() {
+        return $this->role;
+    }
+
+    public function getSalt() {
+        return $this->salt;
+    }
+
+    public function getUsername() {
+        return $this->username;
     }
 
 }

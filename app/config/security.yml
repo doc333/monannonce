@@ -45,7 +45,7 @@ security:
             #anonymous: ~
             #http_basic:
             #    realm: "Secured Demo Area"
-        secured_area:
+        login:
             pattern:    ^/user
             # it's important to notice that in this case _demo_security_check and _demo_login
             # are route names and that they are specified in the AcmeDemoBundle
