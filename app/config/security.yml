@@ -21,6 +21,8 @@ security:
                 users:
                     user:  { password: userpass, roles: [ 'ROLE_USER' ] }
                     admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+                administrators:
+                    entity: { class: BoAnnonceBundle:User, property: username }
 
     # the main part of the security, where you can set up firewalls
     # for specific sections of your app
