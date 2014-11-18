@@ -2,8 +2,8 @@
 
 namespace Bo\AnnonceBundle\Controller;
 
-use Registration;
-use RegistrationType;
+use Bo\AnnonceBundle\Form\Registration;
+use Bo\AnnonceBundle\Form\RegistrationType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -44,17 +44,6 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("/signup", name="_signup")
-     * @Template()
-     */
-    public function signUpAction() {
-        $form = $this->createForm(new RegistrationType(), new Registration());
-
-        return $this->render('BoAnnonceBundle:Default:signup.html.twig', array('form' => $form->createView()));
-    
-    }
-
-    /**
      * @Route("/user_check", name="_login_check")
      */
     public function securityCheckAction()
@@ -68,6 +57,42 @@ class DefaultController extends Controller
     public function logoutAction()
     {
         // The security layer will intercept this request
+    }
+
+    /**
+     * @Route("/signup", name="_signup")
+     * @Template()
+     */
+    public function signUpAction() {
+        $form = $this->createForm(new RegistrationType(), new Registration());
+
+        return $this->render('BoAnnonceBundle:Default:signup.html.twig', array('form' => $form->createView()));
+    
+    }
+    
+    /**
+     * @Route("/signup_create", name="_create")
+     * @Template()
+     */
+    public function createUserAction() {
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm(new RegistrationType(), new Registration());
+
+        $form->handleRequest($this->getRequest());
+
+        if ($form->isValid()) {
+            $registration = $form->getData();
+            
+            $user = $registration->getUser();
+            $user->encodePass();
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirect('/app_dev.php');
+        }
+
+        return $this->render('BoAnnonceBundle:Default:signup.html.twig', array('form' => $form->createView()));
     }
 
 }

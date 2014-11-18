@@ -142,6 +142,8 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
         $this->role = new ArrayCollection();
         $this->isDesactiver = false;
         $this->salt = md5(uniqid(null, true));
+        $this->update = new \DateTime('now');
+        $this->created = new \DateTime('now');
     }
 
     public function eraseCredentials() {
