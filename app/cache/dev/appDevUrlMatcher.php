@@ -122,14 +122,30 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        // bo_annonce_default_index
+        // _user
         if ($pathinfo === '/user') {
-            return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\DefaultController::indexAction',  '_route' => 'bo_annonce_default_index',);
+            return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\DefaultController::indexAction',  '_route' => '_user',);
         }
 
-        // bo_annonce_default_login
-        if ($pathinfo === '/login') {
-            return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\DefaultController::login',  '_route' => 'bo_annonce_default_login',);
+        if (0 === strpos($pathinfo, '/log')) {
+            if (0 === strpos($pathinfo, '/login')) {
+                // _login
+                if ($pathinfo === '/login') {
+                    return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\DefaultController::loginAction',  '_route' => '_login',);
+                }
+
+                // _login_check
+                if ($pathinfo === '/login_check') {
+                    return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\DefaultController::securityCheckAction',  '_route' => '_login_check',);
+                }
+
+            }
+
+            // _logout
+            if ($pathinfo === '/logout') {
+                return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\DefaultController::logoutAction',  '_route' => '_logout',);
+            }
+
         }
 
         // _welcome

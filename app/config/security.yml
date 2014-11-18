@@ -22,7 +22,7 @@ security:
                     user:  { password: userpass, roles: [ 'ROLE_USER' ] }
                     admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
         administrators:
-            entity: { class: BoAnnonceBundle:User, property: username }
+            entity: { class: BoAnnonceBundle:User }
 
     # the main part of the security, where you can set up firewalls
     # for specific sections of your app
@@ -55,10 +55,10 @@ security:
             # it's important to notice that in this case _demo_security_check and _demo_login
             # are route names and that they are specified in the AcmeDemoBundle
             form_login:
-                check_path: /user/check
-                login_path: /login
+                check_path: _login_check
+                login_path: _login
             logout:
-                path:   /logout
+                path:   _logout
                 target: 
             #anonymous: ~
             #http_basic:

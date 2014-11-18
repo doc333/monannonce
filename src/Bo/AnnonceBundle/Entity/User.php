@@ -509,19 +509,19 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
     }
 
     public function isAccountNonExpired() {
-        
+        return true;
     }
 
     public function isAccountNonLocked() {
-        
+        return true;
     }
 
     public function isCredentialsNonExpired() {
-        
+        return true;
     }
 
     public function isEnabled() {
-        
+        return !$this->isDesactiver;
     }
 
 }
