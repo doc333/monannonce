@@ -132,6 +132,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\DefaultController::loginAction',  '_route' => '_login',);
         }
 
+        // _signup
+        if ($pathinfo === '/signup') {
+            return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\DefaultController::signUpAction',  '_route' => '_signup',);
+        }
+
         // _login_check
         if ($pathinfo === '/user_check') {
             return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\DefaultController::securityCheckAction',  '_route' => '_login_check',);

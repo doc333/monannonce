@@ -107,7 +107,7 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
     /**
      * @var DateTime
      *
-     * @ORM\Column(name="update", type="datetime", nullable=false)
+     * @ORM\Column(name="updated", type="datetime", nullable=false)
      */
     private $update;
 
