@@ -1822,7 +1822,19 @@
       </argument>
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
     </service>
-    <service id="security.access_map" class="Symfony\Component\Security\Http\AccessMap" public="false"/>
+    <service id="security.access_map" class="Symfony\Component\Security\Http\AccessMap" public="false">
+      <call method="add">
+        <argument type="service">
+          <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+            <argument>^/admin</argument>
+          </service>
+        </argument>
+        <argument type="collection">
+          <argument>ROLE_ADMIN</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+    </service>
     <service id="security.logout.handler.session" class="Symfony\Component\Security\Http\Logout\SessionLogoutHandler" public="false"/>
     <service id="security.access_listener" class="Symfony\Component\Security\Http\Firewall\AccessListener" public="false">
       <tag name="monolog.logger" channel="security"/>
@@ -1881,6 +1893,12 @@
         </argument>
       </call>
     </service>
+    <service id="security.user.provider.concrete.administrators" class="Symfony\Bridge\Doctrine\Security\User\EntityUserProvider" public="false">
+      <argument type="service" id="doctrine"/>
+      <argument>BoAnnonceBundle:User</argument>
+      <argument>username</argument>
+      <argument>null</argument>
+    </service>
     <service id="security.firewall.map.context.dev" class="Symfony\Bundle\SecurityBundle\Security\FirewallContext">
       <argument type="collection"/>
       <argument>null</argument>
@@ -1897,6 +1915,7 @@
             <argument type="service" id="security.context"/>
             <argument type="collection">
               <argument type="service" id="security.user.provider.concrete.in_memory"/>
+              <argument type="service" id="security.user.provider.concrete.administrators"/>
             </argument>
             <argument>demo_secured_area</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
@@ -2004,6 +2023,7 @@
             <argument type="service" id="security.context"/>
             <argument type="collection">
               <argument type="service" id="security.user.provider.concrete.in_memory"/>
+              <argument type="service" id="security.user.provider.concrete.administrators"/>
             </argument>
             <argument>login</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
@@ -2907,12 +2927,12 @@
             <argument>false</argument>
           </argument>
         </argument>
-        <argument key="Bo\UserBundle\User" type="collection">
+        <argument key="Bo\AnnonceBundle\Entity\User" type="collection">
           <argument key="class">%security.encoder.digest.class%</argument>
           <argument key="arguments" type="collection">
             <argument>sha512</argument>
-            <argument>true</argument>
-            <argument>5000</argument>
+            <argument>false</argument>
+            <argument>1</argument>
           </argument>
         </argument>
       </argument>

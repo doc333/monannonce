@@ -507,4 +507,21 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
             $this->id,
         ) = unserialize($serialized);
     }
+
+    public function isAccountNonExpired() {
+        
+    }
+
+    public function isAccountNonLocked() {
+        
+    }
+
+    public function isCredentialsNonExpired() {
+        
+    }
+
+    public function isEnabled() {
+        
+    }
+
 }
