@@ -1,13 +1,34 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <title>SF2</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap -->
+        <link href="{{ asset('dist/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('dist/css/bootstrap-theme.min.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('bundles/boannonce/css/custom.css') }}" type="text/css" rel="stylesheet" />
+        
+        <style type="text/css">
+            body{
+                padding-top: 60px;
+            }
+        </style>
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        <!-- menu -->
+        {#{% include('BoAdminBundle:Default:menu.html.twig') %}#}
+        <!-- menu end -->
+
+        <div class="container">
+            <div class="row">
+                {% block body %}
+                {% endblock %}
+                
+            </div>
+        </div>
+
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        
     </body>
 </html>

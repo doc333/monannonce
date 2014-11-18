@@ -2,13 +2,12 @@
 
 namespace Bo\AnnonceBundle\Entity;
 
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
-
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Serializable;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -524,4 +523,8 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
         return !$this->isDesactiver;
     }
 
+    public function isEqualTo(UserInterface $user)
+    {
+        return $this->username === $user->getUsername();
+    }
 }

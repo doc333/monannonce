@@ -127,25 +127,19 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\DefaultController::indexAction',  '_route' => '_user',);
         }
 
-        if (0 === strpos($pathinfo, '/log')) {
-            if (0 === strpos($pathinfo, '/login')) {
-                // _login
-                if ($pathinfo === '/login') {
-                    return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\DefaultController::loginAction',  '_route' => '_login',);
-                }
+        // _login
+        if ($pathinfo === '/login') {
+            return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\DefaultController::loginAction',  '_route' => '_login',);
+        }
 
-                // _login_check
-                if ($pathinfo === '/login_check') {
-                    return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\DefaultController::securityCheckAction',  '_route' => '_login_check',);
-                }
+        // _login_check
+        if ($pathinfo === '/user_check') {
+            return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\DefaultController::securityCheckAction',  '_route' => '_login_check',);
+        }
 
-            }
-
-            // _logout
-            if ($pathinfo === '/logout') {
-                return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\DefaultController::logoutAction',  '_route' => '_logout',);
-            }
-
+        // _logout
+        if ($pathinfo === '/logout') {
+            return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\DefaultController::logoutAction',  '_route' => '_logout',);
         }
 
         // _welcome

@@ -43,12 +43,11 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/login_check", name="_login_check")
+     * @Route("/user_check", name="_login_check")
      */
-    public function securityCheckAction(Request $request)
+    public function securityCheckAction()
     {
         // The security layer will intercept this request
-        return new Response($request);
     }
 
     /**
