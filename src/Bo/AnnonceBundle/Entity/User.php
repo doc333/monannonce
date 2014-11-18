@@ -198,6 +198,11 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
      */
     public function setPassword($password)
     {
+        $factory = $this->get('security.encoder_factory');
+        
+        $encoder = $factory->getEncoder($this->user);
+        $password = $encoder->encodePassword($password, $this->getSalt());
+        
         $this->password = $password;
 
         return $this;
