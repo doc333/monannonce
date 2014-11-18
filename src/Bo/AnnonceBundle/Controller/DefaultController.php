@@ -13,6 +13,15 @@ use Symfony\Component\Security\Core\SecurityContext;
 class DefaultController extends Controller
 {
     /**
+     * @Route("/test", name="_test")
+     * @Template()
+     */
+	public function testAction()
+	{
+		return $this->render('::base.html.twig', array());
+	}
+    
+    /**
      * @Route("/user", name="_user")
      * @Template()
      */

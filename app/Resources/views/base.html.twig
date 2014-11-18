@@ -1,22 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>SF2</title>
+        <title>Annonces</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Bootstrap -->
         <link href="{{ asset('dist/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
         <link href="{{ asset('dist/css/bootstrap-theme.min.css') }}" type="text/css" rel="stylesheet" />
         <link href="{{ asset('bundles/boannonce/css/custom.css') }}" type="text/css" rel="stylesheet" />
         
-        <style type="text/css">
-            body{
-                padding-top: 60px;
-            }
-        </style>
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     </head>
     <body>
         <!-- menu -->
-        {#{% include('BoAdminBundle:Default:menu.html.twig') %}#}
+        	{% include('BoAnnonceBundle:Default:menu.html.twig') %}
         <!-- menu end -->
 
         <div class="container">
@@ -27,8 +24,5 @@
             </div>
         </div>
 
-        <script src="http://code.jquery.com/jquery.js"></script>
-        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-        
     </body>
 </html>
