@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Serializable;
+use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -155,7 +156,8 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
     }
 
     public function getRoles() {
-        return $this->role;
+        $tabrole = $this->role->toArray();
+        return $tabrole;
     }
 
     public function getSalt() {
@@ -198,14 +200,20 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
      */
     public function setPassword($password)
     {
-        $factory = $this->get('security.encoder_factory');
-        
-        $encoder = $factory->getEncoder($this->user);
-        $password = $encoder->encodePassword($password, $this->getSalt());
-        
         $this->password = $password;
 
         return $this;
+    }
+    
+    /**
+     * Set hash password
+     * 
+     * @return User
+     */
+    public function encodePass(MessageDigestPasswordEncoder $encoder)
+    {
+        $hashpass = $encoder->encodePassword($this->getPassword(), $this->getSalt());
+        $this->password = $hashpass;
     }
 
     /**
@@ -487,7 +495,7 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
     /**
      * Get role
      *
-     * @return Collection 
+     * @return Array 
      */
     public function getRole()
     {

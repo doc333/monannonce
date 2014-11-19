@@ -27,7 +27,8 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return array('test');
+        $user = $this->getUser();
+        return array('username' => $user->getUsername());
     }
     
     /**
@@ -94,7 +95,9 @@ class DefaultController extends Controller
             $registration = $form->getData();
             
             $user = $registration->getUser();
-            $user->encodePass();
+            $factory = $this->get('security.encoder_factory');
+            $encoder = $factory->getEncoder($user);
+            $user->encodePass($encoder);
             $em->persist($user);
             $em->flush();
 
