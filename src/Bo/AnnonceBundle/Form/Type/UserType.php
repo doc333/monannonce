@@ -20,7 +20,7 @@ class UserType extends AbstractType
         $builder->add('prenom', 'text'); 
         $builder->add('cp', 'integer');
         $builder->add('ville', 'text');
-        $builder->add('roles', 'choice', array(
+        $builder->add('role', 'choice', array(
             'choices'   => array('2' => 'Voir les annonces', '3' => 'Publier des annonces', '4' => 'Voir et publier des annonces'),
             'required'  => true,
         ));
