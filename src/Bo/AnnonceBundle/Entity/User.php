@@ -157,6 +157,7 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
 
     public function getRoles() {
         $tabrole = $this->role->toArray();
+        
         return $tabrole;
     }
 
@@ -492,15 +493,6 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
         $this->role->removeElement($role);
     }
 
-    /**
-     * Get role
-     *
-     * @return Array 
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
     
     /**
      * @see Serializable::serialize()

@@ -46,6 +46,11 @@ class Role implements RoleInterface
         $this->user = new ArrayCollection();
     }
 
+    /**
+     * Get role
+     * 
+     * @return string
+     */
     public function getRole() {
         return $this->role;
     }

@@ -27,6 +27,11 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
         $context = $this->context;
         $request = $this->request;
 
+        // _test
+        if ($pathinfo === '/test') {
+            return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\DefaultController::testAction',  '_route' => '_test',);
+        }
+
         // _user
         if ($pathinfo === '/user') {
             return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\DefaultController::indexAction',  '_route' => '_user',);

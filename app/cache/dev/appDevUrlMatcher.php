@@ -160,6 +160,16 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        // _contact
+        if ($pathinfo === '/contact') {
+            return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\DefaultController::contactAction',  '_route' => '_contact',);
+        }
+
+        // admin.email_ok
+        if ($pathinfo === '/email_ok') {
+            return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\DefaultController::email_okAction',  '_route' => 'admin.email_ok',);
+        }
+
         // _welcome
         if (rtrim($pathinfo, '/') === '') {
             if (substr($pathinfo, -1) !== '/') {

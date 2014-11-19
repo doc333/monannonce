@@ -34,6 +34,7 @@
     <parameter key="mailer_host">smtp.numericable.fr</parameter>
     <parameter key="mailer_user">null</parameter>
     <parameter key="mailer_password">null</parameter>
+    <parameter key="email_admin">mangold.loic@gmail.com</parameter>
     <parameter key="locale">en</parameter>
     <parameter key="secret">ThisTokenIsNotSoSecretChangeIt</parameter>
     <parameter key="debug_toolbar">true</parameter>
@@ -586,6 +587,9 @@
     </parameter>
   </parameters>
   <services>
+    <service id="contact_mail" class="Bo\AnnonceBundle\Mailer\Contact">
+      <argument type="service" id="swiftmailer.mailer.default"/>
+    </service>
     <service id="controller_name_converter" class="Symfony\Bundle\FrameworkBundle\Controller\ControllerNameParser" public="false">
       <tag name="monolog.logger" channel="request"/>
       <argument type="service" id="kernel"/>

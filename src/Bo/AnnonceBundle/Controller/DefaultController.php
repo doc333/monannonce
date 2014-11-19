@@ -2,8 +2,9 @@
 
 namespace Bo\AnnonceBundle\Controller;
 
-use Bo\AnnonceBundle\Form\Registration;
 use Bo\AnnonceBundle\Form\RegistrationType;
+use Bo\AnnonceBundle\Form\Type\ContactType;
+use Bo\AnnonceBundle\Form\Type\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -74,7 +75,7 @@ class DefaultController extends Controller
      * @Template()
      */
     public function signUpAction() {
-        $form = $this->createForm(new RegistrationType(), new Registration());
+        $form = $this->createForm(new UserType());
 
         return $this->render('BoAnnonceBundle:Default:signup.html.twig', array('form' => $form->createView()));
     
@@ -87,24 +88,72 @@ class DefaultController extends Controller
     public function createUserAction() {
         $em = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm(new RegistrationType(), new Registration());
+        $form = $this->createForm(new RegistrationType());
 
         $form->handleRequest($this->getRequest());
-
         if ($form->isValid()) {
-            $registration = $form->getData();
             
+            $registration = $form->getData();
             $user = $registration->getUser();
+            
             $factory = $this->get('security.encoder_factory');
             $encoder = $factory->getEncoder($user);
             $user->encodePass($encoder);
+                        
             $em->persist($user);
             $em->flush();
 
-            return $this->redirect('/app_dev.php');
+            return $this->redirect('_created');
         }
 
         return $this->render('BoAnnonceBundle:Default:signup.html.twig', array('form' => $form->createView()));
     }
+    
+    /**
+     * @Route("/contact", name="_contact")
+     * @Template()
+     */
+    public function contactAction() {
+        $request = $this->getRequest();
+        $defaultData = array();
+        
+        $form = $this->createForm(new ContactType(), $defaultData);
 
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            // Les données sont un tableau avec les clés "name", "email", et "message"
+            $data = $form->getData();
+            $subject = 'Mail Contact '.$data['civilite'].' '.$data['nom'].' '.$data['prenom'];
+            $emailFrom = $data['email'];
+            $emailTo = $this->container->getParameter('email_admin');
+            $message = $data['message'];
+            $fileAttachement = $data['fileImgUpload'];
+            $fileAttachement2 = $data['fileImgUpload2'];
+            
+            $mailerContact = $this->get('contact_mail');
+            $mailerContact->prepareMail($this->get('mailer'), $subject, $emailFrom, $emailTo, $message);
+            $mailerContact->setFileAttachement($fileAttachement->getPathName(), $fileAttachement->getClientOriginalName());
+            $mailerContact->setFileAttachement($fileAttachement2->getPathName(), $fileAttachement2->getClientOriginalName());
+
+            if($mailerContact->send()){
+                return $this->redirect($this->generateUrl('admin.email_ok'));
+            }
+            else{
+                throw $this->createNotFoundException('email non envoyé');
+            }
+        }
+        
+        return $this->render('BoAnnonceBundle:Contact:form_contact.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
+    
+    /**
+     * @Route("/email_ok", name="admin.email_ok")
+     * @Template()
+     */
+    public function email_okAction(){
+        return array();
+    }
 }
