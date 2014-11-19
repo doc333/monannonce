@@ -165,7 +165,7 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
      * )
      * 
      */
-    private $role;
+    private $roles;
 
     /**
      * @ORM\OneToMany(targetEntity="Annonce", mappedBy="user")
@@ -180,6 +180,7 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
     {
         $this->departement = new ArrayCollection();
         $this->role = new ArrayCollection();
+        $this->roles = new ArrayCollection();
         $this->salt = md5(uniqid(rand(),true));
     }
 
@@ -564,13 +565,13 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
      * @param Role $role
      * @return User
      */
-    public function addRole(Role $role)
+    public function addRoles(Role $role)
     {
-        $this->role[] = $role;
+        $this->roles[] = $role;
 
         return $this;
     }
-
+    
     /**
      * Remove role
      *
@@ -578,7 +579,7 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
      */
     public function removeRole(Role $role)
     {
-        $this->role->removeElement($role);
+        $this->roles->removeElement($role);
     }
 
     /**
@@ -588,7 +589,7 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
      */
     public function getRole()
     {
-        return $this->role;
+    	return $this->roles;
     }
 
     public function eraseCredentials() {}

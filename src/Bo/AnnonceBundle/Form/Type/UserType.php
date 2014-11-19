@@ -21,7 +21,7 @@ class UserType extends AbstractType
         $builder->add('cp', 'integer');
         $builder->add('ville', 'text');
         $builder->add('role', 'choice', array(
-            'choices'   => array('2' => 'Voir les annonces', '3' => 'Publier des annonces', '4' => 'Voir et publier des annonces'),
+            'choices'   => array('1' => 'Voir les annonces', '3' => 'Publier des annonces', '4' => 'Voir et publier des annonces'),
             'required'  => true,
         ));
         $builder->add('is_newsletter', 'checkbox', array(
