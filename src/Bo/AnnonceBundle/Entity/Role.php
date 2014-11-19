@@ -30,6 +30,13 @@ class Role implements RoleInterface
      * @ORM\Column(name="role", type="string", length=255, nullable=true)
      */
     private $role;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom_role", type="string", length=255, nullable=true)
+     */
+    private $nomRole;
 
     /**
      * @var Collection
@@ -44,15 +51,6 @@ class Role implements RoleInterface
     public function __construct()
     {
         $this->user = new ArrayCollection();
-    }
-
-    /**
-     * Get role
-     * 
-     * @return string
-     */
-    public function getRole() {
-        return $this->role;
     }
 
 
@@ -80,12 +78,45 @@ class Role implements RoleInterface
     }
 
     /**
-     * Add user
+     * Get role
      *
-     * @param \Bo\AnnonceBundle\Entity\User $user
+     * @return string 
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * Set role
+     *
+     * @param string $role
      * @return Role
      */
-    public function addUser(\Bo\AnnonceBundle\Entity\User $user)
+    public function setNomRole($nomRole)
+    {
+        $this->nomRole = $nomRole;
+
+        return $this;
+    }
+
+    /**
+     * Get role
+     *
+     * @return string 
+     */
+    public function getNomRole()
+    {
+        return $this->nomRole;
+    }
+
+    /**
+     * Add user
+     *
+     * @param User $user
+     * @return Role
+     */
+    public function addUser(User $user)
     {
         $this->user[] = $user;
 
@@ -95,9 +126,9 @@ class Role implements RoleInterface
     /**
      * Remove user
      *
-     * @param \Bo\AnnonceBundle\Entity\User $user
+     * @param User $user
      */
-    public function removeUser(\Bo\AnnonceBundle\Entity\User $user)
+    public function removeUser(User $user)
     {
         $this->user->removeElement($user);
     }
@@ -105,10 +136,15 @@ class Role implements RoleInterface
     /**
      * Get user
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return Collection 
      */
     public function getUser()
     {
         return $this->user;
+    }
+    
+    public function __toString() 
+    {
+        return $this->nomRole;
     }
 }

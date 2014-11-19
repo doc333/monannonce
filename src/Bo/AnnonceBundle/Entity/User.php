@@ -6,20 +6,26 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Entity;
 use Serializable;
-use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
- * @ORM\Entity
+ * @Entity(repositoryClass="UserRepository")
+ * 
+ * @UniqueEntity(fields={"username"},message="Username déjà utilisé !")
+ * @UniqueEntity(fields={"email"},message="Email déjà utilisé !")
+ * 
  */
 class User implements UserInterface, Serializable, AdvancedUserInterface
 {
-    /**
+   /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -31,86 +37,107 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=255, nullable=false)
+     * @ORM\Column(name="username", type="string", length=255, nullable=true)
+     * 
+     *  @Assert\Length(
+     *      min = "6",
+     *      minMessage = "Votre Username doit faire au moins {{ limit }} caractères"
+     * )
      */
     private $username;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=255, nullable=false)
+     * @ORM\Column(name="password", type="string", length=255, nullable=true)
+     * 
+     *  @Assert\Length(
+     *      min = "6",
+     *      minMessage = "Votre Password doit faire au moins {{ limit }} caractères"
+     * )
      */
     private $password;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="salt", type="string", length=255, nullable=false)
+     * @ORM\Column(name="salt", type="string", length=255, nullable=true)
      */
     private $salt;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255, nullable=false)
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     * @Assert\Email(
+     *     message = "'{{ value }}' n'est pas un email valide!",
+     *     checkMX = true
+     * )
      */
     private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
+     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
      */
     private $nom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="prenom", type="string", length=255, nullable=false)
+     * @ORM\Column(name="prenom", type="string", length=255, nullable=true)
      */
     private $prenom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="cp", type="string", length=255, nullable=false)
+     * @ORM\Column(name="cp", type="string", length=255, nullable=true)
      */
     private $cp;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="ville", type="string", length=255, nullable=false)
+     * @ORM\Column(name="ville", type="string", length=255, nullable=true)
      */
     private $ville;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
+     */
+    private $avatar;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="is_newsletter", type="boolean", nullable=false)
      */
-    private $isNewsletter;
+    private $isNewsletter = '1';
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="is_desactiver", type="boolean", nullable=false)
      */
-    private $isDesactiver;
+    private $isDesactiver = '0';
 
     /**
      * @var DateTime
      *
-     * @ORM\Column(name="created", type="datetime", nullable=false)
+     * @ORM\Column(name="created", type="datetime", nullable=true)
      */
-    private $created;
+    private $date_created;
 
     /**
      * @var DateTime
      *
-     * @ORM\Column(name="updated", type="datetime", nullable=false)
+     * @ORM\Column(name="updated", type="datetime", nullable=true)
      */
-    private $update;
+    private $date_updated;
 
     /**
      * @var Collection
@@ -131,9 +158,21 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
      *     @ORM\JoinColumn(name="role_id", referencedColumnName="id")
      *   }
      * )
+     * 
+     * * @Assert\Count(
+     *      min = "1",
+     *      minMessage = "Merci de choisir au moins un type de compte!"
+     * )
+     * 
      */
     private $role;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Annonce", mappedBy="user")
+     */
+    protected $annonces;    
+
+    
     /**
      * Constructor
      */
@@ -141,34 +180,41 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
     {
         $this->departement = new ArrayCollection();
         $this->role = new ArrayCollection();
-        $this->isDesactiver = false;
-        $this->salt = md5(uniqid(null, true));
-        $this->update = new \DateTime('now');
-        $this->created = new \DateTime('now');
+        $this->salt = md5(uniqid(rand(),true));
     }
 
-    public function eraseCredentials() {
-        
+    /**
+     * Add annonces
+     *
+     * @param Annonce $annonces
+     * @return Annonce
+     */
+    public function addAnnonce(Annonce $annonces)
+    {
+        $this->annonces[] = $annonces;
+
+        return $this;
     }
 
-    public function getPassword() {
-        return $this->password;
+    /**
+     * Remove annonces
+     *
+     * @param Annonce $annonces
+     */
+    public function removeAnnonce(Annonce $annonces)
+    {
+        $this->produits->removeElement($annonces);
     }
 
-    public function getRoles() {
-        $tabrole = $this->role->toArray();
-        
-        return $tabrole;
+    /**
+     * Get annonces
+     *
+     * @return Collection 
+     */
+    public function getAnnonces()
+    {
+        return $this->annonces;
     }
-
-    public function getSalt() {
-        return $this->salt;
-    }
-
-    public function getUsername() {
-        return $this->username;
-    }
-
 
     /**
      * Get id
@@ -194,6 +240,39 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
     }
 
     /**
+     * Get username
+     *
+     * @return string 
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+    
+    /**
+     * Set username
+     *
+     * @param string $username
+     * @return User
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string 
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
      * Set password
      *
      * @param string $password
@@ -205,16 +284,15 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
 
         return $this;
     }
-    
+
     /**
-     * Set hash password
-     * 
-     * @return User
+     * Get password
+     *
+     * @return string 
      */
-    public function encodePass(MessageDigestPasswordEncoder $encoder)
+    public function getPassword()
     {
-        $hashpass = $encoder->encodePassword($this->getPassword(), $this->getSalt());
-        $this->password = $hashpass;
+        return $this->password;
     }
 
     /**
@@ -228,6 +306,16 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
         $this->salt = $salt;
 
         return $this;
+    }
+
+    /**
+     * Get salt
+     *
+     * @return string 
+     */
+    public function getSalt()
+    {
+        return $this->salt;
     }
 
     /**
@@ -365,7 +453,7 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
      */
     public function getIsNewsletter()
     {
-        return $this->isNewsletter;
+        return $this->isNewsletter == 1;
     }
 
     /**
@@ -392,37 +480,37 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
     }
 
     /**
-     * Set created
+     * Set date_created
      *
-     * @param \DateTime $created
+     * @param DateTime $date_created
      * @return User
      */
-    public function setCreated($created)
+    public function setCreated($date_created)
     {
-        $this->created = $created;
+        $this->date_created = $date_created;
 
         return $this;
     }
 
     /**
-     * Get created
+     * Get date_created
      *
-     * @return \DateTime 
+     * @return DateTime 
      */
     public function getCreated()
     {
-        return $this->created;
+        return $this->date_created;
     }
 
     /**
      * Set update
      *
-     * @param \DateTime $update
+     * @param DateTime $date_updated
      * @return User
      */
-    public function setUpdate($update)
+    public function setUpdate($date_updated)
     {
-        $this->update = $update;
+        $this->date_updated = $date_updated;
 
         return $this;
     }
@@ -430,11 +518,11 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
     /**
      * Get update
      *
-     * @return \DateTime 
+     * @return DateTime 
      */
     public function getUpdate()
     {
-        return $this->update;
+        return $this->date_updated;
     }
 
     /**
@@ -493,6 +581,23 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
         $this->role->removeElement($role);
     }
 
+    /**
+     * Get role
+     *
+     * @return Collection 
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    public function eraseCredentials() {}
+
+    public function getRoles() 
+    {
+        return $this->getRole()->toArray();
+        
+    }
     
     /**
      * @see Serializable::serialize()
@@ -503,7 +608,11 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
             $this->id,
         ));
     }
-
+    
+    public function __toString() 
+    { 
+        return $this->getUsername(); 
+    }
     /**
      * @see Serializable::unserialize()
      */
@@ -513,25 +622,29 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
             $this->id,
         ) = unserialize($serialized);
     }
-
-    public function isAccountNonExpired() {
-        return true;
-    }
-
-    public function isAccountNonLocked() {
-        return true;
-    }
-
-    public function isCredentialsNonExpired() {
-        return true;
-    }
-
-    public function isEnabled() {
-        return !$this->isDesactiver;
-    }
-
+    
     public function isEqualTo(UserInterface $user)
     {
         return $this->username === $user->getUsername();
+    }
+    
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    public function isEnabled()
+    {
+        return !$this->isDesactiver;
     }
 }
