@@ -1,5 +1,5 @@
-{# empty Twig template #}
 {% extends "::base.html.twig"%}
+{% form_theme form 'BoAnnonceBundle:Form:fields.html.twig' %}
 
 {% block body %}
     {#<div class='container signup'>
@@ -13,7 +13,7 @@
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
         </form>#}
         <form action="{{ path('_create')}}" method="post" {{ form_enctype(form) }}>
-            {{ form_widget(form, { 'attr': {'class': 'form-signup'} }) }}
+            {{ form_widget(form) }}
             <input type="submit" />
         </form>
     </div>

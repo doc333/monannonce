@@ -1,32 +1,33 @@
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Exercices</a>
+            <a class="navbar-brand" href="{{path('_accueil') }}"><img src="/images/symfony2.png" alt="" style="height: 20px"/></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="{{path('_user') }}">Accueil</a></li>
-                <li class="dropdown">
+                <li><a href="{{path('_accueil') }}">Accueil</a></li>
+                <!--<li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">---------- <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">----------</a></li>
                         <li><a href="#">----------</a></li>
                     </ul>
-                </li>
-                <li>
-                </li>
-                <li><a href="{{ path('_user') }}">Aide</a></li>
+                </li>-->
             </ul>
             <ul class="nav navbar-nav navbar-right">
 		    <li class="dropdown">
 		        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Identification <b class="caret"></b></a>
 		        <ul class="dropdown-menu">
-		            <li><a href="#">Connection</a></li>
+		            <li><a href="{{path('_login')}}">Connection</a></li>
 		        </ul>
 		    </li>
 		</ul>
+        
         </div>
     </div>
 </nav>

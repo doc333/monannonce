@@ -122,9 +122,19 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        // _test
-        if ($pathinfo === '/test') {
-            return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\DefaultController::testAction',  '_route' => '_test',);
+        // _contact
+        if ($pathinfo === '/contact') {
+            return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\ContactController::contactAction',  '_route' => '_contact',);
+        }
+
+        // admin.email_ok
+        if ($pathinfo === '/email_ok') {
+            return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\ContactController::email_okAction',  '_route' => 'admin.email_ok',);
+        }
+
+        // _accueil
+        if ($pathinfo === '/accueil') {
+            return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\DefaultController::testAction',  '_route' => '_accueil',);
         }
 
         // _user
@@ -158,16 +168,6 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\DefaultController::createUserAction',  '_route' => '_create',);
             }
 
-        }
-
-        // _contact
-        if ($pathinfo === '/contact') {
-            return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\DefaultController::contactAction',  '_route' => '_contact',);
-        }
-
-        // admin.email_ok
-        if ($pathinfo === '/email_ok') {
-            return array (  '_controller' => 'Bo\\AnnonceBundle\\Controller\\DefaultController::email_okAction',  '_route' => 'admin.email_ok',);
         }
 
         // _welcome
