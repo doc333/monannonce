@@ -27,7 +27,7 @@ class AnnonceController extends Controller
             $em->persist($annonce);
             $em->flush();
 
-            return $this->redirect('/user/annonces');
+            return $this->redirect($this->generateUrl('_user_annonces'));
         }
 
         return $this->render('BoAnnonceBundle:Annonce:create.html.twig', array('form' => $form->createView()));

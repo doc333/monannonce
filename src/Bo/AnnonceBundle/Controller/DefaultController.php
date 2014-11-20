@@ -15,7 +15,7 @@ class DefaultController extends Controller
 	public function accueilAction()
 	{
         $em= $this->getDoctrine()->getManager();
-        $annonces = $em->getRepository('BoAnnonceBundle:Annonce')->findBy(array('isActive'=>1, 'isRefuser'=>0),array(), 0, 10);
-		return $this->render('BoAnnonceBundle:Annonce:accueil.html.twig', array($annonces));
+        $annonces = $em->getRepository('BoAnnonceBundle:Annonce')->findBy(array('isActive'=>1, 'isRefuser'=>0),array(), 10, 0);
+		return $this->render('BoAnnonceBundle:Annonce:accueil.html.twig', array('annonces' => $annonces));
 	}
 }

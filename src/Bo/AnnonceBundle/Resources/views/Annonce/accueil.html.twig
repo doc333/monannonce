@@ -1,5 +1,14 @@
 {% extends "::base.html.twig"%}
 
 {% block body %}
-    
+    {% for annonce in annonces %}             
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ annonce.titre }}</h3>
+            </div>
+            <div class="panel-body">
+                {{ annonce.description }}
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}
