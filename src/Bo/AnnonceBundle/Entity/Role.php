@@ -34,7 +34,7 @@ class Role implements RoleInterface
     /**
      * @var Collection
      * 
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="roles")
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="role")
      */
     private $users;
 
@@ -69,7 +69,7 @@ class Role implements RoleInterface
 
         return $this;
     }
-
+    
     /**
      * Get role
      *

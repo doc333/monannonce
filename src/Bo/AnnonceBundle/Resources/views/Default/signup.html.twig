@@ -14,7 +14,7 @@
         </form>#}
         <form action="{{ path('_create')}}" method="post" {{ form_enctype(form) }}>
             {{ form_widget(form) }}
-            <input type="submit" />
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
         </form>
     </div>
 {% endblock %}

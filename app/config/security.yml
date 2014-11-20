@@ -34,12 +34,25 @@ security:
             form_login:
                 check_path: _login_check
                 login_path: _login
+                default_target_path: _accueil
             logout:
                 path:   _logout
                 target: _login
+                
+#        admin:
+#            pattern: ^/admin
+#            provider: in_memory
+#            form_login:
+#                check_path: _login_check_admin
+#                login_path: _login_admin
+#                default_target_path: _admin
+#            logout:
+#                path:   _logout
+#                target: _login
 
     # with these settings you can restrict or allow access for different parts
     # of your application based on roles, ip, host or methods
     # http://symfony.com/doc/current/book/security.html#security-book-access-control-matching-options
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/user, roles: [ROLE_USER, ROLE_ANNONCEUR] }
