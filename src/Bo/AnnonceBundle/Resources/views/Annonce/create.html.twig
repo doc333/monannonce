@@ -1,0 +1,9 @@
+{% extends "::base.html.twig"%}
+{% form_theme form 'BoAnnonceBundle:Form:fields.html.twig' %}
+
+{% block body %}
+    <form action="{{ path('_add_annonce')}}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+    </form>
+{% endblock %}

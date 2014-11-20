@@ -2,13 +2,18 @@
 
 namespace Bo\AnnonceBundle\Entity;
 
+use Bo\AnnonceBundle\Entity\Departement;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Entity;
+
 
 /**
  * Departement
  *
  * @ORM\Table(name="departement")
- * @ORM\Entity
+ * @Entity
  */
 class Departement
 {
@@ -36,7 +41,7 @@ class Departement
     private $nom;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      *
      * @ORM\ManyToMany(targetEntity="User", inversedBy="departement")
      * @ORM\JoinTable(name="user_departement",
@@ -55,7 +60,7 @@ class Departement
      */
     public function __construct()
     {
-        $this->user = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->user = new ArrayCollection();
     }
 
 
@@ -118,10 +123,10 @@ class Departement
     /**
      * Add user
      *
-     * @param \Bo\AnnonceBundle\Entity\User $user
+     * @param User $user
      * @return Departement
      */
-    public function addUser(\Bo\AnnonceBundle\Entity\User $user)
+    public function addUser(User $user)
     {
         $this->user[] = $user;
 
@@ -131,9 +136,9 @@ class Departement
     /**
      * Remove user
      *
-     * @param \Bo\AnnonceBundle\Entity\User $user
+     * @param User $user
      */
-    public function removeUser(\Bo\AnnonceBundle\Entity\User $user)
+    public function removeUser(User $user)
     {
         $this->user->removeElement($user);
     }
@@ -141,10 +146,19 @@ class Departement
     /**
      * Get user
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return Collection 
      */
     public function getUser()
     {
         return $this->user;
+    }
+    /**
+     * ToString
+     *
+     * @return information Departement 
+     */
+    public function __toString()
+    {
+        return $this->code.' - '.$this->nom;
     }
 }

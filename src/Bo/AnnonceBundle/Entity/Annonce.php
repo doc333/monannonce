@@ -2,13 +2,18 @@
 
 namespace Bo\AnnonceBundle\Entity;
 
+use Bo\AnnonceBundle\Entity\Annonce;
+use Bo\AnnonceBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Entity;
+use Bo\AnnonceBundle\Entity\AnnonceType;
+
 
 /**
  * Annonce
  *
  * @ORM\Table(name="annonce", indexes={@ORM\Index(name="fk_annonce_user_idx", columns={"user_id"}), @ORM\Index(name="fk_annonce_annonce_type1_idx", columns={"annonce_type_id"})})
- * @ORM\Entity
+ * @Entity
  */
 class Annonce
 {
@@ -78,35 +83,35 @@ class Annonce
     private $cp;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="date_debut", type="datetime", nullable=true)
      */
     private $dateDebut;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="date_fin", type="datetime", nullable=true)
      */
     private $dateFin;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="updated", type="datetime", nullable=true)
      */
     private $updated;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="created", type="datetime", nullable=true)
      */
     private $created;
 
     /**
-     * @var \User
+     * @var User
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
@@ -125,7 +130,11 @@ class Annonce
      */
     private $annonceType;
 
-
+    public function __contruct() 
+    {
+        $this->created = new \DateTime('now');
+        $this->updated = new \DateTime('now');
+    }
 
     /**
      * Get id
@@ -324,12 +333,12 @@ class Annonce
     /**
      * Set dateDebut
      *
-     * @param \DateTime $dateDebut
+     * @param DateTime $dateDebut
      * @return Annonce
      */
     public function setDateDebut($dateDebut)
     {
-        $this->dateDebut = $dateDebut;
+        $this->dateDebut = new \DateTime($dateDebut);
 
         return $this;
     }
@@ -337,7 +346,7 @@ class Annonce
     /**
      * Get dateDebut
      *
-     * @return \DateTime 
+     * @return DateTime 
      */
     public function getDateDebut()
     {
@@ -347,12 +356,12 @@ class Annonce
     /**
      * Set dateFin
      *
-     * @param \DateTime $dateFin
+     * @param DateTime $dateFin
      * @return Annonce
      */
     public function setDateFin($dateFin)
     {
-        $this->dateFin = $dateFin;
+        $this->dateFin = new \DateTime($dateFin);
 
         return $this;
     }
@@ -360,7 +369,7 @@ class Annonce
     /**
      * Get dateFin
      *
-     * @return \DateTime 
+     * @return DateTime 
      */
     public function getDateFin()
     {
@@ -370,7 +379,7 @@ class Annonce
     /**
      * Set updated
      *
-     * @param \DateTime $updated
+     * @param DateTime $updated
      * @return Annonce
      */
     public function setUpdated($updated)
@@ -383,7 +392,7 @@ class Annonce
     /**
      * Get updated
      *
-     * @return \DateTime 
+     * @return DateTime 
      */
     public function getUpdated()
     {
@@ -393,7 +402,7 @@ class Annonce
     /**
      * Set created
      *
-     * @param \DateTime $created
+     * @param DateTime $created
      * @return Annonce
      */
     public function setCreated($created)
@@ -406,7 +415,7 @@ class Annonce
     /**
      * Get created
      *
-     * @return \DateTime 
+     * @return DateTime 
      */
     public function getCreated()
     {
@@ -416,10 +425,10 @@ class Annonce
     /**
      * Set user
      *
-     * @param \Bo\AnnonceBundle\Entity\User $user
+     * @param User $user
      * @return Annonce
      */
-    public function setUser(\Bo\AnnonceBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
@@ -429,7 +438,7 @@ class Annonce
     /**
      * Get user
      *
-     * @return \Bo\AnnonceBundle\Entity\User 
+     * @return User 
      */
     public function getUser()
     {
