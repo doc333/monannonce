@@ -32,13 +32,6 @@ class Role implements RoleInterface
     private $role;
     
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nom_role", type="string", length=255, nullable=true)
-     */
-    private $nomRole;
-
-    /**
      * @var Collection
      * 
      * @ORM\ManyToMany(targetEntity="User", mappedBy="roles")
@@ -85,29 +78,6 @@ class Role implements RoleInterface
     public function getRole()
     {
         return $this->role;
-    }
-
-    /**
-     * Set role
-     *
-     * @param string $role
-     * @return Role
-     */
-    public function setNomRole($nomRole)
-    {
-        $this->nomRole = $nomRole;
-
-        return $this;
-    }
-
-    /**
-     * Get role
-     *
-     * @return string 
-     */
-    public function getNomRole()
-    {
-        return $this->nomRole;
     }
 
     /**

@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
 use Serializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -69,10 +70,7 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
-     * @Assert\Email(
-     *     message = "'{{ value }}' n'est pas un email valide!",
-     *     checkMX = true
-     * )
+     * 
      */
     private $email;
 
@@ -114,7 +112,7 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
     /**
      * @var boolean
      *
-     * @ORM\Column(name="is_newsletter", type="boolean", nullable=false)
+     * @ORM\Column(name="is_newsletter", type="boolean", nullable=true)
      */
     private $isNewsletter = '1';
 
@@ -165,7 +163,7 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
      * )
      * 
      */
-    private $roles;
+    private $role;
 
     /**
      * @ORM\OneToMany(targetEntity="Annonce", mappedBy="user")
@@ -180,8 +178,9 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
     {
         $this->departement = new ArrayCollection();
         $this->role = new ArrayCollection();
-        $this->roles = new ArrayCollection();
         $this->salt = md5(uniqid(rand(),true));
+        $this->date_created = new \DateTime('now');
+        $this->date_updated = new \DateTime('now');
     }
 
     /**
@@ -565,9 +564,9 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
      * @param Role $role
      * @return User
      */
-    public function addRoles(Role $role)
+    public function addRole(Role $role)
     {
-        $this->roles[] = $role;
+        $this->role[] = $role;
 
         return $this;
     }
@@ -579,7 +578,7 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
      */
     public function removeRole(Role $role)
     {
-        $this->roles->removeElement($role);
+        $this->role->removeElement($role);
     }
 
     /**
@@ -589,7 +588,7 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
      */
     public function getRole()
     {
-    	return $this->roles;
+    	return $this->role;
     }
 
     public function eraseCredentials() {}
@@ -647,5 +646,11 @@ class User implements UserInterface, Serializable, AdvancedUserInterface
     public function isEnabled()
     {
         return !$this->isDesactiver;
+    }
+    
+    public function encodePass(MessageDigestPasswordEncoder $encoder)
+    {
+        $password = $encoder->encodePassword($this->getPassword(), $this->getSalt());
+        $this->setPassword($password);
     }
 }

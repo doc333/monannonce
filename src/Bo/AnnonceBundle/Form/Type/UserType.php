@@ -20,9 +20,10 @@ class UserType extends AbstractType
         $builder->add('prenom', 'text'); 
         $builder->add('cp', 'integer');
         $builder->add('ville', 'text');
-        $builder->add('role', 'choice', array(
-            'choices'   => array('1' => 'Voir les annonces', '3' => 'Publier des annonces', '4' => 'Voir et publier des annonces'),
-            'required'  => true,
+        $builder->add('role', 'entity', array(
+            'class'     => 'BoAnnonceBundle:Role',
+            'property'  => 'role',
+            'multiple'  => true
         ));
         $builder->add('is_newsletter', 'checkbox', array(
             'label'     => 'Abonnement à la newsletter',

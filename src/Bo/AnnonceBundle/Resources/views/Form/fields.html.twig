@@ -5,7 +5,7 @@
     <div class="form-group">
         <label class="col-sm-3 control-l
                abel">{{ form_label(form) }}</label>
-        <div class="col-sm-6">
+        <div class="col-sm-9">
             {{ form_errors(form) }}
             {{ form_widget(form, { 'attr' : { 'class' : 'form-control' } } ) }}
             {% if help is defined %}
@@ -25,7 +25,7 @@
 
     <div class="form-group">
         <label class="col-sm-3 control-label"></label>
-        <div class="col-sm-6">
+        <div class="col-sm-9">
             <button class="btn btn-success" type="submit" {{ block('button_attributes') }}>{{ label|trans({}, translation_domain) }}</button>
         </div>
     </div>
