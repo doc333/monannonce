@@ -1,0 +1,10 @@
+.footer{
+    padding: 20px;
+    color: #868686;
+    position:relative;
+    left:0px;
+    bottom:0px;
+    height:200px;
+    width:100%;
+    border-top: solid 1px black;
+}

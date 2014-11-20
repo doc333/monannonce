@@ -3,9 +3,9 @@
 {% block form_row %}
     {% set help = attr['help']|default(null) %}
     <div class="form-group">
-        <label class="col-sm-3 control-l
+        <label class="col-sm-6 control-l
                abel">{{ form_label(form) }}</label>
-        <div class="col-sm-9">
+        <div class="col-sm-10">
             {{ form_errors(form) }}
             {{ form_widget(form, { 'attr' : { 'class' : 'form-control' } } ) }}
             {% if help is defined %}
@@ -24,8 +24,8 @@
     {% endif %}
 
     <div class="form-group">
-        <label class="col-sm-3 control-label"></label>
-        <div class="col-sm-9">
+        <label class="col-sm-6 control-label"></label>
+        <div class="col-sm-10">
             <button class="btn btn-success" type="submit" {{ block('button_attributes') }}>{{ label|trans({}, translation_domain) }}</button>
         </div>
     </div>
@@ -48,7 +48,7 @@
             {% if label is empty %}
                 {% set label = name|humanize %}
             {% endif %}
-            <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label|trans({}, translation_domain) }} :</label>
+            <label{% for attrname, attrvalue in label_attr %} {{ attrname }}{{ attrvalue }}{% endfor %}>{{ label|trans({}, translation_domain) }} :</label>
         {% endif %}
     {% endspaceless %}
 {% endblock form_label %}

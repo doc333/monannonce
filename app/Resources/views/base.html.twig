@@ -10,6 +10,7 @@
         <link href="{{ asset('dist/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
         <link href="{{ asset('dist/css/bootstrap-theme.min.css') }}" type="text/css" rel="stylesheet" />
         <link href="{{ asset('bundles/boannonce/css/custom.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('bundles/boannonce/css/footer.css') }}" type="text/css" rel="stylesheet" />
         
         <script src="http://code.jquery.com/jquery.js"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
@@ -26,6 +27,8 @@
                 
             </div>
         </div>
-
+        <!-- menu -->
+        	{% include('BoAnnonceBundle:Default:footer.html.twig') %}
+        <!-- menu end -->
     </body>
 </html>

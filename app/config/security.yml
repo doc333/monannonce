@@ -29,8 +29,9 @@ security:
             security: false
         
         login:
-            pattern: ^/user
+            pattern: ^/
             provider: annonceurs
+            anonymous: ~
             form_login:
                 check_path: _login_check
                 login_path: _login
