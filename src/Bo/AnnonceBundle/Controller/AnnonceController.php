@@ -83,7 +83,7 @@ class AnnonceController extends Controller
      * @Route("/user/participer/{id}", name="_participer")
      * @Template()
      */
-	public function participerAnnonceAction($id)
+	public function participerAnnonceAction(Request $request, $id)
 	{
         $em= $this->getDoctrine()->getManager();
         
@@ -95,7 +95,7 @@ class AnnonceController extends Controller
                 ->getQuery()
                 ->getOneOrNullResult();
         
-        if(is_null($participe)){
+        if(!$participe){
             $participation = new AnnonceUser();
             $participation->setAnnonce($em->getRepository('BoAnnonceBundle:Annonce')->find($id));
             $participation->setUser($this->getUser());
@@ -104,7 +104,7 @@ class AnnonceController extends Controller
             $em->persist($participation);
             $em->flush();   
         }        
-        $url = $this->getRequest()->headers->get('referer');
+        $url = $request->headers->get('referer');
 
         return $this->redirect($url);
 	}
