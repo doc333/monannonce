@@ -11,7 +11,7 @@
             {{ annonce.description }}
         </div>
         <ul class="list-group">
-            <li class="list-group-item">{{ annonce.nbrPlace }} places</li>
+            <li class="list-group-item">Reste {{ restePlace }} sur {{ annonce.nbrPlace }} places</li>
             <li class="list-group-item">{{ annonce.adresse }} <br/> {{ annonce.cp }} <br/> {{ annonce.ville }}</li>
             <li class="list-group-item">Débute le {{ annonce.dateDebut|date("m/d/Y") }} et fini le {{ annonce.dateFin|date("m/d/Y") }}</li>
             {% if app.user %}

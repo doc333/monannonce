@@ -60,7 +60,16 @@ class AnnonceController extends Controller
                 
         $annonce = $em->getRepository('BoAnnonceBundle:Annonce')->find($id);
         
-		return $this->render('BoAnnonceBundle:Annonce:voir.html.twig', array('annonce' => $annonce, 'participe' => $participe));
+        $participant = $em->getRepository('BoAnnonceBundle:AnnonceUser')->createQueryBuilder('au')
+                ->select('COUNT(au.id)')
+                ->where('au.annonce= :annonce')
+                ->setParameter('annonce', $em->getRepository('BoAnnonceBundle:Annonce')->find($id))
+                ->getQuery()
+                ->getSingleScalarResult();
+        
+        $restePlace = $annonce->getNbrPlace()-$participant;
+        
+		return $this->render('BoAnnonceBundle:Annonce:voir.html.twig', array('annonce' => $annonce, 'participe' => $participe, 'restePlace' => $restePlace));
 	}
     
     /**
@@ -83,6 +92,7 @@ class AnnonceController extends Controller
             $participation = new AnnonceUser();
             $participation->setAnnonce($em->getRepository('BoAnnonceBundle:Annonce')->find($id));
             $participation->setUser($this->getUser());
+            $participation->setNbrPersonne(1);
 
             $em->persist($participation);
             $em->flush();   
