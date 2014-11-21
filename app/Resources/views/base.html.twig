@@ -14,14 +14,16 @@
         
         <script src="http://code.jquery.com/jquery.js"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('bundles/boannonce/js/custom.js') }}"></script>
     </head>
     <body>
         <!-- menu -->
         	{% include('BoAnnonceBundle:Default:menu.html.twig') %}
         <!-- menu end -->
 
-        <div class="container">
+        <div class="container wrap jumbotron">
             <div class="row">
+                <h1>Mon Annonce</h1><br/>
                 {% block body %}
                 {% endblock %}
                 

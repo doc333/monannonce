@@ -4,7 +4,7 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 18 nov. 2014, 13:49:23
+    Created on : 21 nov. 2014, 09:45:43
     Author     : da
 */
 
@@ -15,5 +15,19 @@ and open the template in the editor.
 }
 
 body {
-    margin-top: 60px;
+    margin-top: 90px;
+    margin-bottom: 20px
+}
+
+.panel-heading {
+    height: 55px;
+}
+
+.panel-heading a {
+    float: right;
+    margin-top: -20px;
+}
+
+.panel .list-group {
+    text-align: center;
 }

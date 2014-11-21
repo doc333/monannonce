@@ -1,0 +1,31 @@
+{% extends "::base.html.twig"%}
+
+{% block body %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <span>
+                <h3 class="panel-title">{{ annonce.titre }}</h3>
+            </span>
+        </div>
+        <div class="panel-body" style='min-height: 300px;'>
+            {{ annonce.description }}
+        </div>
+        <ul class="list-group">
+            <li class="list-group-item">{{ annonce.nbrPlace }} places</li>
+            <li class="list-group-item">{{ annonce.adresse }} <br/> {{ annonce.cp }} <br/> {{ annonce.ville }}</li>
+            <li class="list-group-item">Débute le {{ annonce.dateDebut|date("m/d/Y") }} et fini le {{ annonce.dateFin|date("m/d/Y") }}</li>
+            {% if app.user %}
+                <li class="list-group-item">
+                    {% if participe %}
+                        <a type="button" class="btn btn-success" href="{{path('_desinscrire', { 'id': annonce.id })}}">Se désinscrire</a>
+                    {% else %}
+                        <a type="button" class="btn btn-success" href="{{path('_participer', { 'id': annonce.id })}}">Participer</a>
+                    {% endif %}
+                    <a type="button" class="btn btn-success" href="{{path('_send_message', { 'uid': annonce.user.id })}}">Envoyer un message</a>
+                </li>
+            {% else %}
+                <li class="list-group-item"><a type="button" class="btn btn-success" href="{{path('_signup')}}">S'inscrire</a></li>
+            {% endif %}
+        </ul>
+    </div>
+{% endblock %}

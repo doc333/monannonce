@@ -58,6 +58,17 @@ class UserController extends Controller
     }
     
     /**
+     * @Route("/user/send_message/{uid}", name="_send_message")
+     * @Template()
+     */
+    public function sendMessageAction($uid) {
+        $form = $this->createForm(new UserType());
+
+        return $this->render('BoAnnonceBundle:Default:signup.html.twig', array('form' => $form->createView()));
+    
+    }
+    
+    /**
      * @Route("/signup_create", name="_create")
      * @Template()
      */

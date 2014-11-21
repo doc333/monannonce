@@ -2,11 +2,14 @@
 
 {% block body %}
     {% for annonce in annonces %}             
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">{{ annonce.titre }}</h3>
+                <span>
+                    <h3 class="panel-title">{{ annonce.titre }}</h3>
+                    <a type="button" class="btn btn-success" href="{{path('_voir_annonce', { 'id': annonce.id } )}}">Voir cette annonce</a>
+                </span>
             </div>
-            <div class="panel-body">
+            <div class="panel-body" style='min-height: 100px; max-height: 100px; overflow: hidden'>
                 {{ annonce.description }}
             </div>
         </div>

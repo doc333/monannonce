@@ -4,7 +4,7 @@
 {% block body %}
     <div class='container signup'>
         <form action="{{ path('_create')}}" method="post" {{ form_enctype(form) }}>
-            {{ form_widget(form) }}
+            {{ form_widget(form) }}<br/>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
         </form>
     </div>
