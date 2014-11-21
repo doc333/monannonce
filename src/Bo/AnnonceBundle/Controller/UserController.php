@@ -25,7 +25,7 @@ class UserController extends Controller
      */
     public function userAnnoncesAction()
     {
-        
+        return array();
     }
     
     /**
@@ -34,7 +34,7 @@ class UserController extends Controller
      */
     public function userRdvAction()
     {
-        
+        return array();
     }
     
     /**
@@ -43,7 +43,7 @@ class UserController extends Controller
      */
     public function userMessagesAction()
     {
-        
+        return array();
     }
     
     /**
@@ -89,7 +89,7 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
-            return $this->redirect('/user');
+            return $this->redirect($this->generateUrl('_user'));
         }
 
         return $this->render('BoAnnonceBundle:Default:signup.html.twig', array('form' => $form->createView()));

@@ -15,23 +15,30 @@ class AnnonceController extends Controller
      * @Template()
      */
     public function createAnonceAction() {
-        $em = $this->getDoctrine()->getManager();
+        if ($this->get('security.context')->isGranted('ROLE_ANNONCEUR')) {
+            $em = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm(new AnnonceType());
+            $form = $this->createForm(new AnnonceType());
 
-        $form->handleRequest($this->getRequest());
-        if ($form->isValid()) {
-            
-            $annonce = $form->getData();
-            $annonce->setUser($this->getUser());
-                                    
-            $em->persist($annonce);
-            $em->flush();
+            $form->handleRequest($this->getRequest());
+            if ($form->isValid()) {
 
-            return $this->redirect($this->generateUrl('_user_annonces'));
+                $annonce = $form->getData();
+                $annonce->setUser($this->getUser());
+
+                $em->persist($annonce);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('_user_annonces'));
+            }
+
+            return $this->render('BoAnnonceBundle:Annonce:create.html.twig', array('form' => $form->createView()));
         }
+        else{
+            $url = $this->getRequest()->headers->get('referer');
 
-        return $this->render('BoAnnonceBundle:Annonce:create.html.twig', array('form' => $form->createView()));
+            return $this->redirect($url);
+        }
     }
     
     /**
